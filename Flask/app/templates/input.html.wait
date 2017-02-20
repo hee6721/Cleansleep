@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="">
+<!--    <link rel="icon" href="../../favicon.ico"> -->
+
+   <title>Clean Sleep - Insight Data Science Project</title>
+
+   <!-- Bootstrap core CSS -->
+   <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+<!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet" background ="/static/images/banner.jpg"> -->
+   <link href="../static/css/bootstrap.min.css" rel="stylesheet" >
+
+   <!-- Custom styles for this template -->
+   <link href="starter-template.css" rel="stylesheet">
+
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="/static/js/sorttable.js"></script>
+
+    <link rel="stylesheet" href="/static/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+    function run() {
+        document.getElementById("location").value = document.getElementById("dropdownMenu1").value;
+        document.getElementById("rating").value = document.getElementById("dropdownMenu2").value;
+    }
+    </script>
+
+   <style type="text/css">
+     body {
+     background-image: url("static/images/banner.jpg");
+     -moz-background-size: cover;
+     -webkit-background-size: cover;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-position: center;
+     background-size: cover;
+     }
+   </style>
+
+    <style type="text/css">
+      div.id {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 500px;
+      width: 800px;
+      
+      }
+      #map {
+      margin: 0 auto;
+      top:20px;
+      height: 400px;
+      width: 600px;
+      background-color: #CCC;
+      border: 1px solid #999;
+      position: center;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+ </head>
+
+
+ <body>
+
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="/cover ">Clean Sleep</a>
+       </div>
+       <div class="collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><a href="input">Home</a></li>
+           <li><a href="https://docs.google.com/presentation/d/1kBLUHOE3mkbp_JXKbU4zIXRkhJch39JYME8x6BBwUQ0/edit#slide=id.gbd3598fd8_0_0"  target="_blank">About</a></li>
+           <li><a href="contact">Contact</a></li>
+         </ul>
+       </div>
+     </div>
+   </div>
+
+<br> 
+<br>
+
+
+<div class="container" style="background-color: white ; opacity: 0.85;">
+  <div class="starter-template" align="right">
+    <br>
+    <h1 style="color:green">Clean Sleep</h1> 
+    <p class="lead">Earn yourself a good sleep in Hotels.<br> Check cleanliness of your Hotel from what other people say.</p>
+  </div>
+
+   <div id="map" align="center" style="height: 400px; width: 600px;"></div>
+
+ <script type="text/javascript">
+
+var locations = [['256738', 40.74354, -73.97474], ['6385164', 40.761513, -73.984955], ['80092', 40.778797, -73.984566], ['80092', 40.778797, -73.984566], ['80112', 40.75602, -73.97141], ['122022', 40.75439, -73.96929], ['3973287', 40.750336, -73.98568], ['612263', 40.7565, -73.98457], ['93445', 40.763493, -73.97975], ['93624', 40.7566, -73.973404], ['5072714', 40.72137, -73.999344], ['223022', 40.71915, -74.000244], ['93579', 40.764877, -73.97534], ['93382', 40.732494, -73.998726], ['5960548', 40.75664, -73.96944], ['620040', 40.7524, -73.99125], ['1762573', 40.75284, -73.98095], ['1762573', 40.75284, -73.98095], ['75737', 40.757267, -73.98443], ['1456560', 40.747047, -73.99006], ['113317', 40.756596, -73.985275], ['93335', 40.756287, -73.971405], ['112041', 40.734653, -73.9961], ['268217', 40.74501, -73.99127], ['99774', 40.747833, -73.98651], ['217616', 40.757782, -73.98377], ['93339', 40.749477, -73.97188], ['93339', 40.749477, -73.97188], ['223024', 40.74607, -73.98511], ['290987', 40.729317, -73.9897], ['99321', 40.764805, -73.98123], ['1938661', 40.758755, -73.98847], ['112066', 40.756058, -73.97228], ['1218720', 40.740955, -74.0081], ['93526', 40.754856, -73.97299], ['217629', 40.75972, -73.9773], ['268216', 40.743843, -73.99305], ['5039880', 40.748215, -73.991196], ['5039880', 40.748215, -73.991196], ['249656', 40.756668, -73.98517], ['249656', 40.756668, -73.98517], ['4274398', 40.75454, -73.9926], ['125274', 40.744503, -73.9846], ['122007', 40.754772, -73.991066], ['122007', 40.754772, -73.991066], ['611947', 40.7625, -73.97967], ['93566', 40.77439, -73.96401], ['1234559', 40.709023, -74.00919], ['208453', 40.756504, -73.988976], ['112019', 40.744007, -73.99605], ['112019', 40.744007, -73.99605], ['575732', 40.760853, -73.969376], ['455186', 40.76618, -73.978516], ['93352', 40.758957, -73.984505], ['93581', 40.735966, -73.98711], ['99425', 40.74831, -73.98783], ['93346', 40.76508, -73.97836], ['93346', 40.76508, -73.97836], ['93346', 40.76508, -73.97836], ['80110', 40.745594, -73.98419], ['630409', 40.76345, -73.980515], ['550885', 40.770123, -73.95791], ['99766', 40.75493, -73.97718], ['93333', 40.74662, -73.98674], ['5040757', 40.75427, -73.99308], ['142114', 40.793324, -73.9722], ['530265', 40.79237, -73.9774], ['93561', 40.722065, -74.004295], ['93561', 40.722065, -74.004295], ['1176643', 40.78396, -73.97191], ['1176643', 40.78396, -73.97191], ['93379', 40.73493, -73.98456], ['122020', 40.740364, -74.003426], ['112021', 40.758183, -73.98357], ['99388', 40.743893, -73.98121], ['75688', 40.764393, -73.981735], ['3168954', 40.719036, -74.00172], ['223021', 40.75603, -73.98134], ['99287', 40.80182, -73.96687], ['2173604', 40.742214, -74.00322], ['225942', 40.742767, -73.9831], ['225942', 40.742767, -73.9831], ['7182804', 40.7098, -74.00999], ['3572583', 40.763992, -73.99456], ['557499', 40.7945, -73.97499], ['320562', 40.749477, -73.98729], ['93470', 40.749943, -73.98107], ['93470', 40.749943, -73.98107], ['1149404', 40.754353, -73.99415], ['7148761', 40.756424, -73.994705], ['224217', 40.743805, -73.983505], ['1746459', 40.72063, -73.99535], ['277882', 40.70888, -74.00203], ['281071', 40.76901, -73.98301], ['93610', 40.755398, -73.982376], ['3344640', 40.752342, -73.98519], ['584986', 40.755802, -73.98039], ['1776857', 40.750263, -73.983765], ['99288', 40.782127, -73.980606], ['1595302', 40.709675, -74.014], ['6582176', 40.765385, -73.97896], ['99387', 40.746655, -73.98449], ['112039', 40.793736, -73.97215], ['93374', 40.721176, -73.99276], ['281234', 40.7448, -73.99325], ['6219365', 40.726334, -74.009], ['249711', 40.757187, -73.98123], ['641209', 40.7466, -73.99139], ['93589', 40.761528, -73.98261], ['4446427', 40.753, -73.97457], ['3506933', 40.714752, -73.99306], ['224221', 40.75209, -73.97941], ['99389', 40.74396, -73.98712], ['93462', 40.755703, -73.97352], ['99333', 40.76331, -73.98682], ['93466', 40.7567, -73.97154], ['93618', 40.756725, -73.97406], ['1575440', 40.767628, -73.95277], ['1462005', 40.70925, -74.01381], ['80107', 40.754784, -73.97317], ['4053479', 40.75042, -73.98682], ['93364', 40.7439, -73.983025], ['122015', 40.746025, -73.98331], ['1791248', 40.715252, -73.99947], ['80075', 40.76174, -73.985275], ['1583937', 40.720318, -73.98807], ['6877735', 40.705917, -74.005], ['99762', 40.742134, -73.9845], ['4972409', 40.732628, -73.996864], ['93419', 40.774353, -73.96317], ['93337', 40.749565, -73.97993], ['93376', 40.759098, -73.983734], ['93477', 40.709736, -74.01474], ['93477', 40.709736, -74.01474], ['1158753', 40.764503, -73.996025], ['93380', 40.759743, -73.9892], ['1199530', 40.75371, -73.97159], ['99371', 40.75752, -73.96995], ['93338', 40.780586, -73.981094], ['222959', 40.705566, -74.01747], ['222959', 40.705566, -74.01747], ['6883205', 40.764656, -73.97674], ['1913413', 40.75972, -73.97771], ['93520', 40.764656, -73.98092], ['634696', 40.725933, -73.99151], ['1128769', 40.722076, -73.9885], ['214197', 40.750034, -73.99123], ['80087', 40.75568, -73.97211], ['7196011', 40.65327, -74.00697], ['290982', 40.74291, -73.99076], ['290982', 40.74291, -73.99076], ['93457', 40.763424, -73.985855], ['1186070', 40.751293, -73.98489], ['3533197', 40.733383, -73.99025], ['578305', 40.752823, -73.98598], ['673077', 40.75564, -73.99164], ['673077', 40.75564, -73.99164], ['1845644', 40.727562, -74.005775], ['5786212', 40.76453, -73.98307], ['564851', 40.780224, -73.94603], ['122004', 40.77447, -73.98297], ['6727310', 40.721848, -73.98698], ['3580899', 40.70886, -74.00203], ['99391', 40.752068, -73.981094], ['113343', 40.798702, -73.96837], ['287626', 40.739933, -74.00575], ['93607', 40.76455, -73.969215], ['247814', 40.723087, -73.99025], ['1157456', 40.727055, -74.00613], ['249712', 40.757683, -73.98909], ['292140', 40.719475, -73.994644], ['217613', 40.79871, -73.97035], ['1025779', 40.756332, -73.99305], ['1477775', 40.743538, -73.98623], ['1888977', 40.761482, -73.98547], ['80093', 40.743736, -73.98062], ['113309', 40.760487, -73.96916], ['1563892', 40.744003, -73.9892], ['208452', 40.715008, -74.01526], ['2554351', 40.7504, -73.98582], ['2554351', 40.7504, -73.98582], ['6776714', 40.759785, -73.97764], ['75711', 40.760296, -73.986176], ['2096704', 40.738808, -73.99042], ['122011', 40.73814, -74.008415], ['224226', 40.755905, -73.98214], ['223023', 40.76817, -73.98489], ['6023925', 40.764374, -73.982704], ['93534', 40.759747, -73.98469], ['3235844', 40.7495, -73.97667], ['1217376', 40.755806, -73.9975], ['620399', 40.716015, -74.00733], ['99447', 40.776134, -73.97765], ['254605', 40.755524, -73.988], ['254605', 40.755524, -73.988], ['655870', 40.727203, -73.99215], ['1158763', 40.750416, -73.98631], ['99354', 40.765293, -73.98321], ['1177864', 40.744595, -73.99921], ['1456416', 40.725468, -74.00533], ['93614', 40.761303, -73.97481], ['1139717', 40.75629, -73.99321], ['112052', 40.775326, -73.96329], ['112052', 40.775326, -73.96329], ['1963673', 40.755436, -73.97811], ['93569', 40.76175, -73.98793], ['262330', 40.711224, -74.01034], ['313862', 40.740578, -74.00593], ['1949647', 40.746204, -73.991425], ['1949647', 40.746204, -73.991425], ['1448670', 40.714108, -73.99382], ['1371825', 40.715218, -74.0091], ['246797', 40.78244, -73.97595], ['1503474', 40.75674, -73.992836], ['571166', 40.73846, -73.985664], ['1858923', 40.703922, -74.01225], ['1155229', 40.79559, -73.972275], ['630950', 40.74835, -73.994644], ['3613090', 40.752155, -73.995155], ['866615', 40.723866, -74.00522], ['866615', 40.723866, -74.00522], ['93340', 40.759907, -73.9732], ['208454', 40.755844, -73.982], ['1601249', 40.74559, -73.99387], ['1852917', 40.755684, -73.99194], ['121981', 40.75226, -73.98552], ['5039852', 40.764133, -73.98249], ['4451787', 40.75315, -73.97452], ['93396', 40.75583, -73.982155], ['93396', 40.75583, -73.982155], ['93507', 40.758373, -73.98547], ['4053109', 40.75121, -73.98466], ['267183', 40.71751, -73.99497], ['99352', 40.761364, -73.98646], ['1500405', 40.75627, -73.99283], ['122005', 40.752705, -73.99348], ['126257', 40.744553, -73.98181], ['126257', 40.744553, -73.98181], ['4945551', 40.76465, -73.98133], ['6510520', 40.746838, -73.98239], ['1048678', 40.713528, -73.99367], ['93575', 40.779762, -73.95453], ['93486', 40.75714, -73.98473], ['1237128', 40.746773, -73.99174], ['93555', 40.76242, -73.981804], ['99368', 40.75378, -73.986336], ['217630', 40.761272, -73.991745], ['1308397', 40.764324, -73.97793], ['8035866', 40.75566, -73.98857], ['121996', 40.749783, -73.986046], ['1464151', 40.75639, -73.99237], ['93612', 40.7625, -73.97636], ['1181739', 40.73828, -74.00942], ['1181739', 40.73828, -74.00942], ['2253206', 40.753616, -73.99459], ['673080', 40.745377, -73.99225], ['2643161', 40.74496, -73.98851], ['540545', 40.74889, -74.00701], ['75698', 40.708042, -74.00137], ['75698', 40.708042, -74.00137], ['75698', 40.708042, -74.00137], ['93489', 40.749268, -73.976326], ['126260', 40.757927, -73.97621], ['1028569', 40.719822, -74.009865], ['93539', 40.785587, -73.9817], ['93539', 40.785587, -73.9817], ['93539', 40.785587, -73.9817], ['1786395', 40.719814, -74.00007], ['3529145', 40.750492, -73.98605], ['290978', 40.75709, -73.98354], ['1733337', 40.75826, -73.96214], ['1553789', 40.70978, -74.013885], ['1164645', 40.70568, -74.00587], ['1207461', 40.83052, -73.94256], ['234762', 40.76439, -73.97747], ['4283443', 40.74595, -74.005], ['93454', 40.760715, -73.98519], ['1383001', 40.71664, -73.994804], ['671150', 40.771496, -73.982666], ['99357', 40.761246, -73.985954], ['209382', 40.75054, -73.96934], ['93344', 40.768326, -73.98732], ['6555841', 40.716076, -73.99522], ['2151571', 40.750473, -74.00334], ['1486164', 40.751175, -73.98455], ['224214', 40.752827, -73.983765], ['99392', 40.750122, -73.986], ['99307', 40.76435, -73.98066], ['601762', 40.71859, -73.98976], ['4232686', 40.764572, -73.97848], ['93623', 40.769096, -73.9816], ['1783324', 40.72115, -74.00425], ['93517', 40.75963, -73.987], ['93452', 40.74723, -73.98701], ['260396', 40.781197, -73.97975], ['260396', 40.781197, -73.97975], ['1485961', 40.70516, -74.008125], ['113311', 40.761463, -73.9756], ['93571', 40.744396, -73.985695], ['675616', 40.76447, -73.97449], ['1990870', 40.757977, -73.991936], ['121991', 40.749683, -73.97608], ['217627', 40.788902, -73.975105], ['1007724', 40.72287, -73.989395], ['219622', 40.744453, -73.9968], ['3502291', 40.76432, -73.99501], ['93585', 40.765713, -73.969246], ['113298', 40.762325, -73.97128], ['121998', 40.783005, -73.94757], ['1572980', 40.723034, -73.99741], ['596200', 40.755566, -73.99726], ['93357', 40.765724, -73.9788], ['208888', 40.749657, -73.99585], ['93430', 40.749897, -73.97969], ['224229', 40.77951, -73.98657], ['224229', 40.77951, -73.98657], ['1878946', 40.80908, -73.95148], ['93431', 40.7497, -73.97822], ['113300', 40.759403, -73.97483], ['224224', 40.765274, -73.9758], ['93565', 40.748234, -73.98746], ['3572587', 40.75095, -73.97222], ['93586', 40.754745, -73.98084], ['99302', 40.760216, -73.958206], ['93351', 40.715473, -74.00891], ['281697', 40.752693, -73.972435], ['93606', 40.76671, -73.96831], ['665814', 40.721268, -73.99802], ['93475', 40.755516, -73.97283], ['220243', 40.736534, -73.988625], ['220243', 40.736534, -73.988625], ['220243', 40.736534, -73.988625], ['616735', 40.794037, -73.97489], ['1641016', 40.756462, -73.98455], ['1641016', 40.756462, -73.98455], ['121987', 40.781933, -73.98194], ['93390', 40.78243, -73.98133], ['93450', 40.75204, -73.97638], ['6407567', 40.75519, -73.98598], ['632551', 40.720863, -74.00545], ['93359', 40.760456, -73.98752], ['7255276', 40.755596, -73.98627], ['2148819', 40.755245, -73.97298], ['1456411', 40.743954, -73.9841], ['93398', 40.72393, -74.00312], ['157057', 40.762905, -73.97535], ['1785018', 40.722687, -74.00483], ['1060157', 40.7185, -73.99522], ['99382', 40.739483, -73.98232], ['93545', 40.76209, -73.982925], ['7737096', 40.75523, -73.991714], ['7182733', 40.746178, -73.98909], ['93334', 40.78318, -73.9737], ['1465008', 40.7056, -74.00724], ['1465008', 40.7056, -74.00724], ['1465008', 40.7056, -74.00724], ['217626', 40.7566, -73.97198], ['217626', 40.7566, -73.97198], ['607712', 40.759987, -73.97823], ['93358', 40.75576, -73.96909], ['99332', 40.764023, -73.982834], ['93383', 40.76759, -73.98315], ['122014', 40.707962, -74.00718], ['7314002', 40.76128, -73.97764], ['7314002', 40.76128, -73.97764], ['194238', 40.74953, -73.97779], ['674743', 40.718746, -74.00048], ['1485603', 40.75934, -73.99088], ['1646128', 40.75857, -73.98955], ['1646128', 40.75857, -73.98955], ['1646128', 40.75857, -73.98955], ['251906', 40.704643, -74.01032], ['251906', 40.704643, -74.01032], ['235238', 40.75932, -73.98554], ['93464', 40.764175, -73.978485], ['2622936', 40.71698, -73.99522], ['267182', 40.71869, -73.99253], ['4457041', 40.71339, -73.992905], ['112053', 40.72493, -73.99865], ['208455', 40.719383, -74.00492], ['93516', 40.76253, -73.98364], ['93516', 40.76253, -73.98364], ['93516', 40.76253, -73.98364], ['7014966', 40.70825, -74.014114], ['1217245', 40.834663, -73.939384], ['1027901', 40.743275, -73.99108], ['488793', 40.719845, -73.99892], ['488793', 40.719845, -73.99892], ['1235341', 40.758938, -73.96951], ['1415127', 40.76035, -73.98975], ['1415127', 40.76035, -73.98975], ['1214829', 40.746964, -73.990906], ['99365', 40.765682, -73.98297], ['112062', 40.76098, -73.985504], ['93622', 40.760162, -73.99609], ['4799063', 40.757572, -73.98404], ['4799063', 40.757572, -73.98404], ['518280', 40.75748, -73.9838], ['7130807', 40.746708, -73.99158], ['6733290', 40.746117, -73.983376], ['93421', 40.75735, -73.988396], ['93593', 40.75037, -73.97395], ['93593', 40.75037, -73.97395], ['93568', 40.7559, -73.982346], ['93559', 40.76434, -73.972565], ['284904', 40.74517, -73.98971], ['1940859', 40.746777, -73.98738], ['217622', 40.751633, -73.979095], ['235228', 40.75729, -73.99858], ['514488', 40.71976, -73.98809], ['99327', 40.75276, -73.9745], ['249710', 40.801838, -73.966644], ['1206876', 40.81164, -73.96064], ['624442', 40.74916, -73.98402], ['4702789', 40.758076, -73.975365], ['93401', 40.7436, -73.98989], ['7939016', 40.721165, -73.98894], ['7939016', 40.721165, -73.98894], ['3236642', 40.718204, -73.98634], ['80083', 40.743904, -74.0009], ['1390172', 40.756435, -73.99254], ['112064', 40.762424, -73.97818], ['1201072', 40.745743, -73.98826], ['224223', 40.74722, -73.986336], ['224223', 40.74722, -73.986336], ['2079052', 40.759247, -73.99551], ['93437', 40.759647, -73.98605], ['273530', 40.742447, -74.00391], ['93625', 40.78477, -73.955666], ['99281', 40.783527, -73.97841], ['99281', 40.783527, -73.97841], ['7816364', 40.750362, -73.98549], ['93583', 40.760685, -73.97036], ['93345', 40.764347, -73.992386], ['113329', 40.749935, -73.98099], ['113329', 40.749935, -73.98099], ['93525', 40.75837, -73.98332], ['6201200', 40.740948, -73.98344], ['6201200', 40.740948, -73.98344], ['223019', 40.744488, -73.98914], ['99443', 40.79858, -73.96013], ['7787303', 40.74129, -73.98704], ['609602', 40.73469, -73.98804], ['93603', 40.765244, -73.972], ['1806062', 40.756325, -73.98221], ['5550873', 40.752014, -73.984726], ['498869', 40.748028, -73.99017], ['93356', 40.760345, -73.98782], ['93356', 40.760345, -73.98782], ['643970', 40.797943, -73.97], ['1218792', 40.750443, -73.986565], ['5888246', 40.712215, -73.99269], ['1465162', 40.75654, -73.99279], ['3522780', 40.736156, -73.996635], ['1146072', 40.748196, -73.98866], ['1379306', 40.762383, -73.97967], ['1149402', 40.72775, -73.99085], ['80081', 40.738743, -73.99451], ['3583686', 40.754715, -73.97256], ['217623', 40.70672, -74.00882]];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: new google.maps.LatLng(40.766215,-73.979921),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    var labels = 'EGFP';
+    var labelIndex = 0;
+
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      label: labels[labelIndex++ % labels.length],  
+      map: map
+      });
+
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+		    
+        }
+      })(marker, i));
+    }
+   
+  </script>
+
+<br>
+<br>
+
+        <div id="map-container" ></div>
+        <form class="form-inline" style="background-color: white "  align="center">
+        <div class="form-group">
+          <label for="location"></label>
+          <select id="dropdownMenu1" onchange="run()">
+            <option value="New York City, NY">New York City, NY</option>
+          </select>
+          <br>
+          <input type="hidden" class=text-center type="text" id="location" name='location' placeholder="New York City, NY">
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div class="form-group" >
+          <label for="rating"></label>
+            <select id="dropdownMenu2" onchange="run()">
+
+            <option value="select"> &nbsp;&nbsp;Select rating&nbsp; </option>
+            <option value="Excellent"> &nbsp;&nbsp;Excellent&nbsp; </option>
+            <option value="Good"> &nbsp;&nbsp;Good&nbsp; </option>
+            <option value="Fair"> &nbsp;&nbsp;Fair&nbsp; </option>
+            <option value="Poor"> &nbsp;&nbsp;Poor&nbsp; </option>
+          </select>
+          <br>
+          <input type="hidden" class=text-center type="text" id="rating" name='Rating' placeholder="Good">
+        </div>
+<!--          <br> -->
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <div class="form-group">
+           <p> </p> 
+           <button type="submit" class="btn btn-default">search again</button> 
+         </div> 
+ 	</form> 
+<br>
+<p align="right">Click icons to see reviews from TripAdvisor.</p>
+
+<!-- <div class="row"> -->
+<!-- <\!-- <div class="col-md-6 col-md-offset-1"  style="background-color: white; opacity: 0.85; overflow:auto; height:822px" > -\-> -->
+<!-- <table class="sortable"> -->
+<!--   <tr> -->
+<!--     <th>Hotels</th><th>Where</th><th>Rating</th><th></th> -->
+<!-- </tr> -->
+<!--         {% for item in hotel_results %} -->
+<!--         <tr id="hotel-{{ item['hotelidarray'] }}" onmouseenter="hoverhotel({{ item['hotelidarray'] }})" onmouseout="unhoverhotel({{ item['hotelidarray'] }})" > -->
+<!--           <td style="float:center">{% for i in range(walklist[item['hotelidarray']]) %} {% endfor %}</td> -->
+<!--           <td style="padding:20px"></td> -->
+<!--           <td> <b>{{ item['name'] }} </b><br> {% for i in range(item['rating']) %} &#9733; {% endfor %} <br> <a href={{ item['link'] }} target="_blank">Book it now!</a></td> -->
+<!--           <td  class="hidden">{{ item['rate'] }}</td> -->
+<!--           <td>${{ item['rate'] }} <br> avg nightly</td> -->
+<!--           <td class="hidden">{{ hotelthreshold[item['hotelidarray']] }}</td> -->
+<!--           <td> {{ hotelthreshold[item['hotelidarray']] - 5 }} - {{ hotelthreshold[item['hotelidarray']] }}  <br>  mins </td> -->
+<!--         </tr> -->
+<!--         {% endfor %} -->
+<!-- </table> -->
+<!-- </div> -->
+
+<!--   <table class="table table-hover"> -->
+<!-- <div class="row" width="100%"> -->
+
+<!-- <table data-url="data1.json" data-height="299" data-sort-name="name" data-sort-order="desc"> -->
+<!--     <thead> -->
+<!--         <tr> -->
+<!--             <th data-field="id" data-align="right" data-sortable="true">Item ID</th> -->
+<!--             <th data-field="name" data-align="center" data-sortable="true">Item Name</th> -->
+<!--             <th data-field="price" data-sortable="true">Item Price</th> -->
+<!--         </tr> -->
+<!--     </thead> -->
+<!-- </table> -->
+
+    <table class="sortable table  table-hover">
+   <tr><th><a class="btn btn-default">Hotel</a></th><th>Where</th><th>Rating</th><th><a class="btn btn-default">sort by Rating</a></th</tr>
+    <tr> <td>Hotel_East_Houston</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1007724-Reviews-Hotel_East_Houston-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+    <tr> <td>Wyndham_Garden_Hotel_Manhattan_Chelsea_West<td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1027901-Reviews-Wyndham_Garden_Hotel_Manhattan_Chelsea_West-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+    <tr> <td>Morgans_New_York_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d113329-Reviews-Morgans_New_York_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Casablanca_Hotel_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d113317-Reviews-Casablanca_Hotel_Times_Square-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>Doubletree_Hotel_Chelsea_New_York_City</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1214829-Reviews-Doubletree_Hotel_Chelsea_New_York_City-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Greenwich_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1028569-Reviews-Greenwich_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Larchmont_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d112041-Reviews-Larchmont_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Third_Ave_House</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1164614-Reviews-Third_Ave_House-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr> <td>Phillips Club</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d122004-Reviews-Phillips_Club-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>The_Nolitan_Hotel</td><td>New York</td><td><a href="https://www.google.com/search?q=The_Nolitan_Hotel&oq=The_Nolitan_Hotel&aqs=chrome..69i57j69i58j0l4.4211j0j9&sourceid=chrome&es_sm=119&ie=UTF-8" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>Holiday_Inn_New_York_City_Wall_Street</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1234559-Reviews-or10-Holiday_Inn_New_York_City_Wall_Street-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Royal_Park_Hotel </td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1155229-Reviews-Royal_Park_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+
+    <tr> <td>Candlewood_Suites_New_York_City_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1007724-Reviews-Hotel_East_Houston-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>The_French_Quarters_Guest_Apartments</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1415127-Reviews-The_French_Quarters_Guest_Apartments-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+
+    <tr> <td>Days_Inn_Hotel_New_York_City_Broadway</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d142114-Reviews-Days_Inn_Hotel_New_York_City_Broadway-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr> <td>Four_Points_by_Sheraton_Midtown_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1464151-Reviews-or30-Four_Points_by_Sheraton_Midtown_Times_Square-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Mayor_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1448670-Reviews-Mayor_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>SIXTY_LES</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1448670-Reviews-Mayor_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Eurostars Wall Street</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1164645-Reviews-or10-Eurostars_Wall_Street-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Luxurstay_B_B</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1206876-Reviews-Luxurstay_B_B-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr><td>The_Sylvan_Guest_House</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1217245-Reviews-The_Sylvan_Guest_House-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr><td>The GEM Hotel Hudson Yards, an Ascend Hotel Collection Member</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1217376-Reviews-The_GEM_Hotel_Hudson_Yards_an_Ascend_Hotel_Collection_Member-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+
+    <tr> <td>Gild_Hall_A_Thompson_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d122014-Reviews-Gild_Hall_A_Thompson_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+  </table>
+
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+
+</div>
+
+
+   <!-- Bootstrap core JavaScript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="static/js/bootstrap.min.js"></script>
+ </body>
+</html>
