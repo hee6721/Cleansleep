@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <link rel="icon" href="../../favicon.ico">
+
+   <title>Clean Sleep - Insight Data Science Project</title>
+
+   <!-- Bootstrap core CSS -->
+   <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+<!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet" background ="/static/images/banner.jpg"> -->
+   <link href="../static/css/bootstrap.min.css" rel="stylesheet" >
+
+   <!-- Custom styles for this template -->
+   <link href="starter-template.css" rel="stylesheet">
+
+   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+   <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+   <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+<!--   <style> -->
+<!--       html, body { height:100%; } -->
+<!--   </style> -->
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+   <![endif]-->
+<!--    <style type="text/css"> -->
+<!--      body { -->
+<!--      background-image: url("static/images/banner.jpg"); -->
+<!--      -moz-background-size: cover; -->
+<!--      -webkit-background-size: cover; -->
+<!--      background-repeat: no-repeat; -->
+<!--      background-attachment: fixed; -->
+<!--      background-position: center; -->
+<!-- <\!--      background-position: 60% 60%; -\-> -->
+<!--      background-size: cover; -->
+<!--      } -->
+<!--    </style> -->
+    <style type="text/css">
+      div.id {
+<!--        height: 100%; -->
+       margin: 0;
+      padding: 0;
+     height: 500px; 
+      width: 800px; 
+  
+     }
+      #map {
+      margin: 0 auto;
+      top:20px;
+      height: 500px;
+      width: 800px;
+      border: 1px solid #999;
+      position: center;
+      }
+<!-- #floating-panel { -->
+<!--   position: absolute; -->
+<!--   top: 200px; -->
+<!--   left: 25%; -->
+<!--   z-index: 5; -->
+<!--   background-color: #fff; -->
+<!--   padding: 5px; -->
+<!--   border: 1px solid #999; -->
+<!--   text-align: center; -->
+<!--   font-family: 'Roboto','sans-serif'; -->
+<!--   line-height: 30px; -->
+<!--   padding-left: 10px; -->
+<!-- } -->
+
+<!--       #floating-panel { -->
+<!--         background-color: #fff; -->
+<!--         border: 1px solid #999; -->
+<!--         left: 25%; -->
+<!--         padding: 5px; -->
+<!--         position: absolute; -->
+<!--         top: 200px; -->
+<!--         z-index: 5; -->
+<!--       } -->
+
+     </style>
+
+<!--    <div id="floating-panel"> -->
+<!--       <button onclick="toggleHeatmap()">Toggle Heatmap</button> -->
+<!--       <button onclick="changeGradient()">Change gradient</button> -->
+<!--       <button onclick="changeRadius()">Change radius</button> -->
+<!--       <button onclick="changeOpacity()">Change opacity</button> -->
+<!--     </div> -->
+
+
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+<!--    function initMap() { -->
+<!--       var map = new google.maps.Map(document.getElementById('map'), { -->
+<!--     center: {lat: 41.850033, lng: -87.6500523} -->
+<!--     zoom: 11 -->
+<!--   }); -->
+<!--    var layer = new google.maps.FusionTablesLayer({ -->
+<!--     query: { -->
+<!--       select: '\'Geocodable address\'', -->
+<!--        from: '1mZ53Z70NsChnBMm-qEYmSDOvLXgrreLTkQUvvg' -->
+<!--      }  -->
+<!--    });  -->
+<!--    layer.setMap(map);  -->
+<!--  } -->
+
+var map, heatmap;
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+<!--       center: {lat: 37.775, lng: -122.434}, -->
+      center: {lat: 40.762181, lng: -73.980974},
+      mapTypeId: google.maps.MapTypeId.MAP.SATELLITE
+    });
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: getPoints(),
+      map: map
+      google.maps.event.addDomListener(window, 'load', initMap);
+<!--     }); -->
+<!--  } -->
+<!-- function toggleHeatmap() { -->
+<!--     heatmap.setMap(heatmap.getMap() ? null : map); -->
+<!-- } -->
+
+<!-- function changeGradient() { -->
+<!--   var gradient: [ -->
+    radius: 20,
+    opacity: 1,
+    gradient: [
+    'rgba(0, 255, 255, 0)',
+    'rgba(0, 255, 255, 1)',
+    'rgba(0, 191, 255, 1)',
+    'rgba(0, 127, 255, 1)',
+    'rgba(0, 63, 255, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(0, 0, 223, 1)',
+    'rgba(0, 0, 191, 1)',
+    'rgba(0, 0, 159, 1)',
+    'rgba(0, 0, 127, 1)',
+    'rgba(63, 0, 91, 1)',
+    'rgba(127, 0, 63, 1)',
+    'rgba(191, 0, 31, 1)',
+    'rgba(255, 0, 0, 1)'
+    ]
+<!--   heatmap.set('gradient', heatmap.get('gradient') ? null : gradient); -->
+<!-- } -->
+<!-- function changeRadius() { -->
+<!--      heatmap.set('radius', heatmap.get('radius') ? null : 20); -->
+<!-- } -->
+<!-- function changeOpacity() { -->
+<!--     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2); -->
+<!-- } -->
+  });
+}
+function getPoints() {
+  return [
+  {% for x,y in crimes_around %}
+  new google.maps.LatLng({{y}}, {{x}}),
+    {% endfor %} 
+<!--     new google.maps.LatLng(37.782551, -122.445368), -->
+<!--     new google.maps.LatLng(37.782745, -122.444586), -->
+<!--     new google.maps.LatLng(37.782842, -122.443688), -->
+<!--     new google.maps.LatLng(37.782919, -122.442815), -->
+   new google.maps.LatLng(40.74354,-73.97474),
+   new google.maps.LatLng(40.761513,-73.984955)
+  ];
+}
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcWnJhs6gtVXBEXeneMXPKL0_wtjeV34A&signed_in=true&libraries=visualization&callback=initMap"> 
+</script> 
+
+
+ </head>
+
+ <!-- <body background = "/static/images/banner.jpg" ; background-repeat: no-repeat; background-attachment: fixed;> -->
+ <body>
+
+
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="/cover ">Clean Sleep</a>
+       </div>
+       <div class="collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><a href="input">Home</a></li>
+           <li><a href="https://docs.google.com/presentation/d/1kBLUHOE3mkbp_JXKbU4zIXRkhJch39JYME8x6BBwUQ0/edit#slide=id.gbd3598fd8_0_0"  target="_blank">About</a></li>
+           <li><a href="contact">Contact</a></li>
+         </ul>
+       </div><!--/.nav-collapse -->
+     </div>
+   </div>
+
+<br> 
+<br>
+
+<div class="container">
+  <div class="starter-template" align="right">
+    <h1>Clean Sleep</h1> 
+    <p class="lead">Earn yourself a good sleep in Hotels.<br> Check cleanliness of your Hotel from what other people say.</p>
+  </div>
+    <div id="map" align="center" style="      height: 500px; width: 800px;"></div>
+<br>
+<br>
+<p align="right">Click icons to see reviews from TripAdvisor.</p>
+  <table class="table table-hover">
+    <tr><th>Hotel</th><th>Where</th><th>Rating</th><th></th</tr> 
+    <tr> <td>Hotel_East_Houston</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1007724-Reviews-Hotel_East_Houston-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+    <tr> <td>Wyndham_Garden_Hotel_Manhattan_Chelsea_West<td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1027901-Reviews-Wyndham_Garden_Hotel_Manhattan_Chelsea_West-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+    <tr> <td>Morgans_New_York_Hote</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d113329-Reviews-Morgans_New_York_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Casablanca_Hotel_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d113317-Reviews-Casablanca_Hotel_Times_Square-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>Doubletree_Hotel_Chelsea_New_York_City</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1214829-Reviews-Doubletree_Hotel_Chelsea_New_York_City-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Greenwich_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1028569-Reviews-Greenwich_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Larchmont_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d112041-Reviews-Larchmont_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Third_Ave_House</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1164614-Reviews-Third_Ave_House-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr> <td>Phillips Club</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d122004-Reviews-Phillips_Club-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>The_Nolitan_Hotel</td><td>New York</td><td><a href="https://www.google.com/search?q=The_Nolitan_Hotel&oq=The_Nolitan_Hotel&aqs=chrome..69i57j69i58j0l4.4211j0j9&sourceid=chrome&es_sm=119&ie=UTF-8" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+    <tr> <td>Holiday_Inn_New_York_City_Wall_Street</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1234559-Reviews-or10-Holiday_Inn_New_York_City_Wall_Street-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Royal_Park_Hotel </td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1155229-Reviews-Royal_Park_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+
+    <tr> <td>Candlewood_Suites_New_York_City_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1007724-Reviews-Hotel_East_Houston-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>The_French_Quarters_Guest_Apartments</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1415127-Reviews-The_French_Quarters_Guest_Apartments-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/excellent.png" width=60 height=30></button></a></td><td>Excellent</td></tr>
+
+
+    <tr> <td>Days_Inn_Hotel_New_York_City_Broadway</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d142114-Reviews-Days_Inn_Hotel_New_York_City_Broadway-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr> <td>Four_Points_by_Sheraton_Midtown_Times_Square</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1464151-Reviews-or30-Four_Points_by_Sheraton_Midtown_Times_Square-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+    <tr> <td>Mayor_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1448670-Reviews-Mayor_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>SIXTY_LES</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1448670-Reviews-Mayor_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Eurostars Wall Street</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1164645-Reviews-or10-Eurostars_Wall_Street-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr> <td>Luxurstay_B_B</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1206876-Reviews-Luxurstay_B_B-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/poor.png" width=60 height=30></button></a></td><td>Poor</td></tr>
+
+    <tr><td>The_Sylvan_Guest_House</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1217245-Reviews-The_Sylvan_Guest_House-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+    <tr><td>The GEM Hotel Hudson Yards, an Ascend Hotel Collection Member</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d1217376-Reviews-The_GEM_Hotel_Hudson_Yards_an_Ascend_Hotel_Collection_Member-New_York_City_New_York.html#REVIEWS" target="_blank"> <button type="submit"><img src="static/images/fair.png" width=60 height=30></button></a></td><td>Fair</td></tr>
+
+
+    <tr> <td>Gild_Hall_A_Thompson_Hotel</td><td>New York</td><td><a href="http://www.tripadvisor.com/Hotel_Review-g60763-d122014-Reviews-Gild_Hall_A_Thompson_Hotel-New_York_City_New_York.html" target="_blank"> <button type="submit"><img src="static/images/good.png" width=60 height=30></button></a></td><td>Good</td></tr>
+
+
+
+
+<!--     <tr><td>Hotel Wales </td><td>New York</td><td><button type="submit"><img src="static/images/good.png" width=60 height=30> Good</button> </td></tr> -->
+<!--     <tr><td>The Lexington New York City an Autograph Collection Hotel </td><td>New York</td><td><button type="submit"><img src="static/images/poor.png" width=60 height=30> Poor</button> </td></tr> -->
+<!--     <tr><td>The Manhattan Club </td><td>New York</td><td> <button type="submit"><img src="static/images/poor.png" width=60 height=30> poor</button></td></tr> -->
+<!--     <tr><td>Ace Hotel New York </td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>The Blakely New York</td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>Skyline Hotel</td><td>New York</td><td> <button type="submit"><img src="static/images/poor.png" width=60 height=30> poor</button></td></tr> -->
+<!--     <tr><td>BESTWESTERN PREMIER Herald Square </td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>The Lucerne Hotel</td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+
+<!--     <tr><td>Skyline Hotel</td><td>New York</td><td> <button type="submit"><img src="static/images/poor.png" width=60 height=30> poor</button></td></tr> -->
+<!--     <tr><td>BESTWESTERN PREMIER Herald Square </td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>The Lucerne Hotel</td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>Skyline Hotel</td><td>New York</td><td> <button type="submit"><img src="static/images/poor.png" width=60 height=30> poor</button></td></tr> -->
+<!--     <tr><td>BESTWESTERN PREMIER Herald Square </td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>The Lucerne Hotel</td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>Skyline Hotel</td><td>New York</td><td> <button type="submit"><img src="static/images/poor.png" width=60 height=30> poor</button></td></tr> -->
+<!--     <tr><td>BESTWESTERN PREMIER Herald Square </td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+<!--     <tr><td>The Lucerne Hotel</td><td>New York</td><td><button type="submit"><img src="static/images/fair.png" width=60 height=30> Fair</button> </td></tr> -->
+
+  </table>
+
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+
+  
+</div><! /.container -->
+
+
+   <!-- Bootstrap core JavaScript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="static/js/bootstrap.min.js"></script>
+ </body>
+</html>

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--     <link rel="icon" href="/static/images/businessmanblack.png"> -->
+
+    <title>Clean Sleep</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/starter-template.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $( "#strdate" ).datepicker({
+        onSelect: function(selected) {
+          $("#enddate").datepicker("option","minDate", selected)
+       }
+      });
+      $( "#enddate" ).datepicker({
+        onSelect: function(selected) {
+          $("#strdate").datepicker("option","maxDate", selected)
+       }
+      });
+    });
+    </script>
+
+    <script>
+    function run() {
+        document.getElementById("location").value = document.getElementById("dropdownMenu1").value;
+        document.getElementById("ttime").value = document.getElementById("dropdownMenu2").value;
+    }
+    </script>
+   <style type="text/css">
+     body {
+     background-image: url("static/images/banner.jpg");
+     -moz-background-size: cover;
+     -webkit-background-size: cover;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-position: center;
+<!--      background-position: 60% 60%; -->
+     background-size: cover;
+     }
+   </style>
+
+  </head>
+
+  <body id="wrapper">
+
+    <br>
+<!--     &nbsp;&nbsp;&nbsp; <a href="https://docs.google.com/presentation/d/1kBLUHOE3mkbp_JXKbU4zIXRkhJch39JYME8x6BBwUQ0/edit#slide=id.gbd3598fd8_0_0" target="_blank">ABOUT</a> -->
+<!--          <br> -->
+<!--      &nbsp;&nbsp;&nbsp; <a href="contact" target="_blank">CONTACT</a> -->
+
+         <br>
+     &nbsp;&nbsp;&nbsp; <a href="about" target="_blank">ABOUT</a>
+    <br>
+     &nbsp;&nbsp;&nbsp; <a href="contact" target="_blank">CONTACT</a>
+
+    <div class="container">
+
+	<style>
+	div.container{
+
+	position: absolute;
+	top:  80px;
+	left: 800px;
+
+	}
+	</style>
+	
+
+       <h1 style="color:green">Clean Sleep  </h1>
+
+        <p style="color:black" style=" text-align:right">Check clean hotels for your pleasant travel experience</p>
+      
+        <br>
+
+        <form class="form-inline" action="/input" method="GET">
+        <div class="form-group" > 
+          <p style="color:black" >Location
+          <label for="location"></label>
+
+	  <select id="dropdownMenu1" onchange="run()">  
+            <option value="New York" >New York City, NY</option>
+          </select>
+	  
+          <input type="hidden"  class=text-center type="text" id="location" name='location' placeholder="New York City, NY">
+
+         <button type="submit" class="btn btn-default">  Search</button>
+	  </p> 
+	  
+        </div>         
+<!--         <div class="form-group"> -->
+<!--           <p style="color:white"> Arrival Date </p> -->
+<!--           <label for="strdate"></label> -->
+<!--           <input class=text-center type="text" id="strdate" name='strdate' placeholder="MM/DD/YYYY"> -->
+<!--         </div> -->
+<!--         <div class="form-group"> -->
+<!--           <p style="color:white"> Departure Date </p> -->
+<!--           <label for="enddate"></label> -->
+<!--           <input class=text-center type="text" id="enddate" name='enddate' placeholder="MM/DD/YYYY"> -->
+<!--         </div> -->
+<!--         <div class="form-group" width=100%> -->
+<!--           <p style="color:white" > --select a hotel-- </p> -->
+<!--           <label for="ttime"></label> -->
+<!--             <select id="dropdownMenu2" onchange="run()"> -->
+<!--             <option value="60"> &nbsp;&nbsp;60 mins&nbsp; </option> -->
+<!--             <option value="55"> &nbsp;&nbsp;55 mins&nbsp; </option> -->
+<!--             <option value="50"> &nbsp;&nbsp;50 mins&nbsp; </option> -->
+<!--             <option value="45"> &nbsp;&nbsp;45 mins&nbsp; </option> -->
+<!--             <option value="40"> &nbsp;&nbsp;40 mins&nbsp; </option> -->
+<!--             <option value="35"> &nbsp;&nbsp;35 mins&nbsp; </option> -->
+<!--             <option value="30"> &nbsp;&nbsp;30 mins&nbsp; </option> -->
+<!--             <option value="25"> &nbsp;&nbsp;25 mins&nbsp; </option> -->
+<!--             <option value="20"> &nbsp;&nbsp;20 mins&nbsp; </option> -->
+<!--             <option value="15"> &nbsp;&nbsp;15 mins&nbsp; </option> -->
+<!--             <option value="10"> &nbsp;&nbsp;10 mins&nbsp; </option> -->
+<!--             <option value="5"> &nbsp;&nbsp;5 mins&nbsp; </option> -->
+<!--           </select> -->
+<!--           <br> -->
+<!--           <input type="hidden" class=text-center type="number" id="ttime" name='ttime' placeholder="20 mins"> -->
+<!--         </div> -->
+<!--         <div class="form-group"> -->
+<!--           <p> </p> -->
+        </div>
+     </form>
+
+    </div>
+
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
